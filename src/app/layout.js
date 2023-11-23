@@ -19,8 +19,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${pixel.variable} font-sans dark`}>{children}</body>
+    <html lang="en" className="p-0 m-0">
+      <body className={`${pixel.variable} overflow-hidden font-sans dark p-0 m-0`}>
+        {children}
+      </body>
     </html>
   );
 }

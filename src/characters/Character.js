@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useSprite } from "react-sprite-animator";
+import { useEffect, useState } from "react";
+import { SpriteAnimator, useSprite } from "react-sprite-animator";
 
 function Character({
   action = "idle",
@@ -20,13 +20,23 @@ function Character({
     frameCount: 6,
     ...props,
   });
+
+  useEffect(() => {
+    setCurrent(action);
+  }, [action]);
   return (
-    <div
+    <SpriteAnimator
+      sprite={`/characters/${character}/${current}.png`}
+      width={128}
+      height={128}
+      fps={8}
+      scale={0.4}
+      frameCount={8}
       onMouseOver={() => setCurrent(hover)}
       onMouseOut={() => setCurrent(action || "idle")}
-      style={styles}
       className={className}
-    ></div>
+      {...props}
+    />
   );
 }
 
