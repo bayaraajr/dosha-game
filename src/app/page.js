@@ -17,7 +17,12 @@ export default function Home() {
       key="pitta"
       className="transition hover:scale-125 flex justify-center items-center flex-col"
     >
-      <Character character="wizard" action="idle" hover="attack_3" />
+      <Character
+        scale={0.5}
+        character="wizard"
+        action="idle"
+        hover="attack_3"
+      />
       <div className="flex justify-center items-center">
         <p className="text-center text-white text-4xl">Kapha hunter</p>
         {selected === "kapha" && (
@@ -30,7 +35,15 @@ export default function Home() {
       key="vata"
       className="transition relative hover:scale-125 flex justify-center items-center flex-col"
     >
-      <Character character="archer" action="idle" hover="walk" />
+      <Character
+        character="thunder_vata"
+        height={128}
+        width={288}
+        className="-mt-10"
+        action="idle"
+        scale={0.4}
+        frameCount={8}
+      />
       <div className="flex justify-center items-center">
         <p className="text-center text-white text-4xl"> Thunder Vata </p>
         {selected === "vata" && (
@@ -43,7 +56,7 @@ export default function Home() {
       key="kapha"
       className="transition hover:scale-125 flex justify-center items-center flex-col"
     >
-      <Character character="swordsman" action="idle" hover="s" />
+      <Character scale={0.5} character="swordsman" action="idle" />
       <div className="flex justify-center items-center">
         <p className="text-center text-white text-4xl">Scholar Pitta</p>
         {selected === "pitta" && (
@@ -57,7 +70,7 @@ export default function Home() {
       <div className="absolute top-2 left-[calc(50%_-_150px)] w-[300px] flex justify-center items-center">
         <Button>Choose your hero</Button>
       </div>
-      <div className="grid lg:grid-cols-3 grid-cols-1">
+      <div className="mt-10 grid lg:grid-cols-3 grid-cols-1">
         {characters.map((c, i) => {
           return (
             <motion.div
