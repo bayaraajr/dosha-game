@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import Character from "@dosha/characters/Character";
@@ -10,6 +11,7 @@ import { IoHeartSharp } from "react-icons/io5";
 import Modal from "@dosha/components/Modal";
 
 const StepPage = (props) => {
+  const [friends, setFriends] = useState([]);
   const [history, setHistory] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -20,6 +22,8 @@ const StepPage = (props) => {
   const [currentDmg, setCurrentDmg] = useState(null);
   const action = (a) => {
     const dmg = a.point;
+    if (a.type === "character") setFriends((f) => [...f, a]);
+    setHistory((h) => [...h, a]);
     setCurrentDmg(dmg);
     if (dmg < 0) setState("dead");
     else setState("walking");
@@ -143,7 +147,7 @@ const StepPage = (props) => {
             Dosha Balance
           </p>
         </div>
-        <Button>Vata</Button>
+        <Button>Kapha</Button>
         <div className="flex justify-end items-center">
           <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-green-100 h-[20px] rounded-md">
             <div
@@ -155,8 +159,24 @@ const StepPage = (props) => {
         </div>
       </div>
       <div className="flex justify-center items-center">
+        {friends &&
+          friends.map((v, i) => {
+            return (
+              <Character
+                key={i}
+                character={v.sprite}
+                action="idle"
+                scale={0.5}
+                frameCount={16}
+                fps={8}
+                // className="-scale-x-[1]"
+                {...v.props}
+              />
+            );
+          })}
         <Character
           character="wizard"
+          scale={0.5}
           action={
             currentDmg
               ? currentDmg < 0
@@ -168,28 +188,27 @@ const StepPage = (props) => {
           }
           //   stopLastFrame={currentDmg < 0}
         />
-
-        {currentStep.villains &&
-          currentStep.villains.map((v, i) => {
-            return (
-              <div key={i} className="relative">
-                <p className="text-xl p-4 rounded-md bg-black text-white absolute top-[20%] left-[50%]">
-                  {v.text}
-                  <div className="w-[20px] h-[20px] rotate-45 bg-black absolute left-[calc(50%_-_10px)] bottom-[-10px]"></div>
-                </p>
-                <Character
-                  character={v.sprite}
-                  action="attack_2"
-                  scale={0.3}
-                  className="-scale-x-[1]"
-                  {...v.props}
-                />
-              </div>
-            );
-          })}
       </div>
       <div className="flex justify-center px-10 items-center">
         <div>
+          {currentStep.villains &&
+            currentStep.villains.map((v, i) => {
+              return (
+                <div key={i} className="relative">
+                  <p className="text-xl p-4 rounded-md bg-black text-white absolute top-[20%] left-[50%]">
+                    {v.text}
+                    <div className="w-[20px] h-[20px] rotate-45 bg-black absolute left-[calc(50%_-_10px)] bottom-[-10px]"></div>
+                  </p>
+                  <Character
+                    character={v.sprite}
+                    action="attack_2"
+                    scale={0.5}
+                    className="-scale-x-[1]"
+                    {...v.props}
+                  />
+                </div>
+              );
+            })}
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Button>{currentStep.text}</Button>
           </motion.div>
@@ -222,6 +241,15 @@ const StepPage = (props) => {
                       {a.image && (
                         <img height="64" width="64" src={a.image} alt="Herb1" />
                       )}
+                      {a.type === "character" && (
+                        <Character
+                          character={a.sprite}
+                          action="idle"
+                          scale={0.5}
+                          className="-mt-10 -mx-36 -scale-x-[1]"
+                          {...a.props}
+                        />
+                      )}
                       <p className="text-center text-white text-xl">{a.text}</p>
                     </motion.div>
                   </div>
@@ -233,11 +261,22 @@ const StepPage = (props) => {
       </div>
     </div>
   ) : (
-    <div className="">
+    <div className="flex justify-center items-center flex-col h-screen">
+      {currentHP <= 0 ? (
+        <p className="p-4 text-white bg-black">
+          Nooooooooo, it cannot end like this, I should have kept my dosha in
+          balance, humanity depends on me
+        </p>
+      ) : (
+        <p className="p-4 text-white bg-black">
+          And we will be there to stop you, you can bet on that!
+        </p>
+      )}
       <Character
         character="wizard"
-        action={currentHP <= 0 ? "dead" : "idle"}
-        stopLastFrame={true}
+        action={currentHP <= 0 ? "dead" : "jump"}
+        stopLastFrame={currentHP <= 0}
+        frameCount={4}
       />
     </div>
   );

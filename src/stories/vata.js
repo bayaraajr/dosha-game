@@ -94,81 +94,119 @@ const vataStory = [
     text: "Woo, I am ready to fight! But I need a partner. Let’s call one of my friend who able to learn vata-jitsu quickly!",
     friends: [],
     damage: 0,
+    // answers: [
+
+    //   {
+    //     text: "FirePitta",
+    //     point: 10,
+    //     type: "character",
+    //     sprite: "vata_hunter",
+    //     action: () => {
+    //       vataFriends.friend1.name = "FirePitta";
+    //     },
+    //     frame: {
+    //       w: 288,
+    //       h: 128,
+    //       c: 3,
+    //     },
+    //   },
+    //   {
+    //     text: "EarhKapha",
+    //     point: -10,
+    //     type: "character",
+    //     sprite: "pitta_huntress",
+    //     action: () => {
+    //       vataFriends.friend1.name = "EarhKapha";
+    //     },
+    //     frame: {
+    //       w: 288,
+    //       h: 128,
+    //       c: 3,
+    //     },
+    //   },
+    // ],
     answers: [
       {
-        text: "FirePitta",
-        point: 10,
-        image: "/foods/15_burger.png",
-        action: () => {
-          vataFriends.friend1.name = "FirePitta";
-        },
-        frame: {
-          w: 288,
-          h: 128,
-          c: 3,
+        text: "Earth Kapha",
+        point: 0,
+        sprite: "earth_kapha",
+        type: "character",
+        props: {
+          height: 128,
+          width: 288,
+          action: "attack",
+          frameCount: 25,
         },
       },
       {
-        text: "EarhKapha",
-        point: -10,
-        action: () => {
-          vataFriends.friend1.name = "EarhKapha";
+        text: "Fire Pitta",
+        point: 0,
+        sprite: "fire_pitta",
+        type: "character",
+        props: {
+          action: "attack",
+          height: 128,
+          width: 288,
+          frameCount: 18,
         },
-        frame: {
-          w: 288,
-          h: 128,
-          c: 3,
-        },
-        image: "/foods/85_roastedchicken.png",
       },
     ],
   },
-  {
-    text:
-      vataFriends.friend1.name == "FirePitta"
-        ? vataFriends.friend1.question.pitta
-        : vataFriends.friend1.question.kapha,
-    friends: [],
-    damage: 0,
-    answers:
-      vataFriends.friend1.name == "FirePitta"
-        ? vataFriends.friend1.answers.pitta
-        : vataFriends.friend1.answers.kapha,
-  },
-  {
-    text: "Yeah! We've done our workout.",
-    friends: [
-      {
-        name: vataFriends.friend1.name,
-        text: "We need someone who has 80 years of experience to kill dragons.",
-      },
-    ],
-    damage: 0,
-  },
+  // {
+  //   text:
+  //     vataFriends.friend1.name == "FirePitta"
+  //       ? vataFriends.friend1.question.pitta
+  //       : vataFriends.friend1.question.kapha,
+  //   friends: [],
+  //   damage: 0,
+  //   answers:
+  //     vataFriends.friend1.name == "FirePitta"
+  //       ? vataFriends.friend1.answers.pitta
+  //       : vataFriends.friend1.answers.kapha,
+  // },
+  // {
+  //   text: "Yeah! We've done our workout.",
+  //   friends: [
+  //     {
+  //       name: vataFriends.friend1.name,
+  //       text: "We need someone who has 80 years of experience to kill dragons.",
+  //     },
+  //   ],
+  //   damage: 0,
+  // },
   {
     text: "Oh, yeah. Let’s ask for join another friend.",
     friends: [],
     damage: 0,
     answers: [
       {
-        text: "LegenderyPitta",
-        point: 5,
-        action: () => {
-          vataFriends.friend2.name = "LegenderyPitta";
+        text: "Legendary Pitta",
+        point: 0,
+        sprite: "pitta_huntress",
+        type: "character",
+      },
+      {
+        text: "Huricane Vata",
+        point: 0,
+        sprite: "huricane_vata",
+        type: "character",
+        props: {
+          height: 128,
+          width: 288,
+          action: "attack",
+          frameCount: 7,
         },
       },
       {
-        text: "HurricaneVata",
-        point: -10,
-        action: () => {
-          vataFriends.friend2.name = "HurricaneVata";
-        },
-      },
-      {
-        text: "WaterKapha",
-        point: 10,
-        action: () => {
-          vataFriends.friend2.name = "WaterKapha";
+        text: "Water Kapha",
+        point: 0,
+        sprite: "water_kapha",
+        type: "character",
+        props: {
+          height: 128,
+          width: 288,
+          action: "attack",
+          frameCount: 32,
         },
       },
     ],
@@ -178,10 +216,26 @@ const vataStory = [
     friends: [],
     villians: [
       {
+        sprite: "dragon",
         text: "Hahahaha! Let’s kill those little insects!",
+        props: {
+          frameCount: 9,
+        },
       },
     ],
     damage: -50,
+    answers: [
+      {
+        text: "A Gun",
+        point: 0,
+        image: "/foods/15_burger.png",
+      },
+      {
+        text: "Wooden cross",
+        point: 0,
+        image: "/foods/85_roastedchicken.png",
+      },
+    ],
   },
   {
     text: "Let’s eat fruits food for buff!",
@@ -215,6 +269,18 @@ const vataStory = [
       },
     ],
     damage: -30,
+    answers: [
+      {
+        text: "A Gun",
+        point: 0,
+        image: "/foods/15_burger.png",
+      },
+      {
+        text: "Wooden cross",
+        point: 0,
+        image: "/foods/85_roastedchicken.png",
+      },
+    ],
   },
 
   {
@@ -245,6 +311,18 @@ const vataStory = [
       },
     ],
     damage: -50,
+    answers: [
+      {
+        text: "A Gun",
+        point: 0,
+        image: "/foods/15_burger.png",
+      },
+      {
+        text: "Wooden cross",
+        point: 0,
+        image: "/foods/85_roastedchicken.png",
+      },
+    ],
   },
 
   {
@@ -254,8 +332,15 @@ const vataStory = [
       { text: "Are you a transcendental walker!" },
       { text: "My friends will kill you tomorrow! Ahhhhhh…." },
     ],
-    answers: [],
+
     damage: 0,
+    answers: [
+      {
+        text: "A Gun",
+        point: 0,
+        image: "/foods/15_burger.png",
+      },
+    ],
   },
   {
     text: "Yeah, we won!!!! Tomorrow morning, we have to fight again! It’s 20:00",
@@ -265,6 +350,13 @@ const vataStory = [
       { text: "Find some quite place for do TM.", point: 10 },
     ],
     damage: 0,
+    answers: [
+      {
+        text: "A Gun",
+        point: 0,
+        image: "/foods/15_burger.png",
+      },
+    ],
   },
   {
     text: "It was a long day! Time to sleep. Let’s set an alarm.",

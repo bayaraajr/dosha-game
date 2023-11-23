@@ -13,24 +13,17 @@ export default function Home() {
   const router = useRouter();
   const characters = [
     <div
-      onClick={() => setSelected("pitta")}
+      onClick={() => setSelected("kapha")}
       key="pitta"
       className="transition hover:scale-125 flex justify-center items-center flex-col"
     >
       <Character character="wizard" action="idle" hover="attack_3" />
       <div className="flex justify-center items-center">
-        <p className="text-center text-white text-4xl">Pitta man</p>
-        {selected === "pitta" && (
+        <p className="text-center text-white text-4xl">Kapha hunter</p>
+        {selected === "kapha" && (
           <FaCheckCircle className=" text-green-500 text-xl" />
         )}
       </div>
-
-      <p className="text-white mt-4">Attibutes</p>
-      <ul>
-        <li className="text-green-500">100 HP</li>
-        <li className="text-orange-500">3 instances of TM</li>
-        <li className="text-cyan-500">100 Movespeed</li>
-      </ul>
     </div>,
     <div
       onClick={() => setSelected("vata")}
@@ -39,37 +32,24 @@ export default function Home() {
     >
       <Character character="archer" action="idle" hover="walk" />
       <div className="flex justify-center items-center">
-        <p className="text-center text-white text-4xl"> Doctor Vata </p>
+        <p className="text-center text-white text-4xl"> Thunder Vata </p>
         {selected === "vata" && (
           <FaCheckCircle className="text-green-500 text-xl" />
         )}
       </div>
-      <p className="text-white mt-4">Attibutes</p>
-      <ul className="text-xl">
-        <li className="text-green-500">100 HP</li>
-        <li className="text-orange-500">3 instances of TM</li>
-        <li className="text-cyan-500">100 Movespeed</li>
-      </ul>
     </div>,
     <div
-      onClick={() => setSelected("kapha")}
+      onClick={() => setSelected("pitta")}
       key="kapha"
       className="transition hover:scale-125 flex justify-center items-center flex-col"
     >
-      <Character character="swordsman" action="idle" hover="attack_2" />
+      <Character character="swordsman" action="idle" hover="s" />
       <div className="flex justify-center items-center">
-        <p className="text-center text-white text-4xl">Kapha Ranger</p>
-        {selected === "kapha" && (
+        <p className="text-center text-white text-4xl">Scholar Pitta</p>
+        {selected === "pitta" && (
           <FaCheckCircle className="text-green-500 text-xl" />
         )}
       </div>
-
-      <p className="text-white mt-4">Attibutes</p>
-      <ul>
-        <li className="text-green-500">100 HP</li>
-        <li className="text-orange-500">3 instances of TM</li>
-        <li className="text-cyan-500">100 Movespeed</li>
-      </ul>
     </div>,
   ];
   return (
@@ -91,7 +71,7 @@ export default function Home() {
           );
         })}
         <div className="col-span-3 flex justify-center mt-12">
-          <Button onClick={() => router.push("/steps")}>Start!</Button>
+          <Button onClick={() => router.push("/" + selected)}>Start!</Button>
         </div>
       </div>
     </div>
