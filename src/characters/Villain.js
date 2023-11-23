@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { SpriteAnimator, useSprite } from "react-sprite-animator";
 
-function Character({
+function Villain({
   action = "idle",
   character = "wizard",
   className,
@@ -11,17 +11,26 @@ function Character({
   ...props
 }) {
   const [current, setCurrent] = useState(action || "idle");
+  const styles = useSprite({
+    sprite: `/villains/${character}/${current}.png`,
+    width: 128,
+    height: 128,
+    fps: 8,
+    scale: 0.4,
+    frameCount: 6,
+    ...props,
+  });
 
   useEffect(() => {
     setCurrent(action);
   }, [action]);
   return (
     <SpriteAnimator
-      sprite={`/characters/${character}/${current}.png`}
-      width={128}
-      height={128}
+      sprite={`/villains/${character}/${current}.png`}
+      width={32}
+      height={32}
       fps={8}
-      scale={0.4}
+      scale={0.2}
       frameCount={8}
       onMouseOver={() => setCurrent(hover)}
       onMouseOut={() => setCurrent(action || "idle")}
@@ -31,4 +40,4 @@ function Character({
   );
 }
 
-export default Character;
+export default Villain;

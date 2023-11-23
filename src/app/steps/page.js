@@ -1,6 +1,7 @@
 "use client";
 
 import Character from "@dosha/characters/Character";
+import Villain from "@dosha/characters/Villain";
 import Button from "@dosha/components/Button";
 import { useEffect, useState } from "react";
 
@@ -30,6 +31,11 @@ const StepPage = (props) => {
         </div>
       </div>
       <div className="flex justify-center items-center flex-col">
+        <Villain
+          character="dragon"
+          action="idle"
+          //   stopLastFrame={currentDmg < 0}
+        />
         <Character
           character="wizard"
           action={currentDmg ? (currentDmg < 0 ? "hurt" : "run") : "idle"}
