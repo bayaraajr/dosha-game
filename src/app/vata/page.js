@@ -159,21 +159,25 @@ const StepPage = (props) => {
             </div>
           </div>
           <div className="flex justify-between items-center h-screen px-2 lg:px-40 overflow-x-auto">
-            <div className="flex flex-col gap-2">
-              <div className="w-28 h-28 relative overflow-hidden ">
+            <div className="flex flex-col gap-0">
+              <div className="w-56 h-28 relative overflow-hidden ">
                 <Character
                   character="thunder_vata"
                   className="absolute object-contain left-1/2 -translate-x-1/2 bottom-0"
                   scale={0.5}
                   width={288}
                   height={128}
-                  frameCount={8}
+                  frameCount={
+                    currentStep.villians && currentStep.villians.length > 0
+                      ? 18
+                      : 8
+                  }
                   action={
                     currentDmg
                       ? currentDmg < 0
                         ? "hurt"
                         : "idle"
-                      : currentStep.villains && currentStep.villains.length > 0
+                      : currentStep.villians && currentStep.villians.length > 0
                       ? "attack"
                       : "idle"
                   }
@@ -201,7 +205,7 @@ const StepPage = (props) => {
                 })}
             </div>
 
-            <div className="flex justify-center items-center ">
+            <div className="flex justify-center items-center -translate-x-36 lg:-translate-x-12">
               {currentStep.villians &&
                 currentStep.villians.map((v, i) => {
                   return (
