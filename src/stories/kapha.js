@@ -1,6 +1,6 @@
 const kaphaStory = [
   {
-    text: "Tonight is the Resurrection of the lord of darkness, Dracula. As a legendary vampire hunter I'll have to stop it. But first I need to take care of the night creatures, so need to have my strength up. I'm craving sweets. What should I eat?",
+    text: "Tonight is the Resurrection of the Countess Dracula. As a legendary vampire hunter I'll have to stop it. But first I need to take care of the night creatures, so need to have my strength up. I'm craving sweets. What should I eat?",
     friends: [],
     damage: 0,
     answers: [
@@ -38,7 +38,7 @@ const kaphaStory = [
         },
       },
     ],
-    damage: -10,
+    damage: -20,
     answers: [
       {
         text: "Stone",
@@ -101,7 +101,7 @@ const kaphaStory = [
         },
       },
     ],
-    damage: -20,
+    damage: -30,
     answers: [
       {
         text: "Bow & Arrow",
@@ -127,7 +127,7 @@ const kaphaStory = [
         image: "/general/nap.png",
       },
       {
-        text: "Oh here is an Apple",
+        text: "Have an Apple instead",
         point: -10,
         image: "/foods/apple.png",
       },
@@ -152,26 +152,26 @@ const kaphaStory = [
     ],
   },
   {
-    text: "WOLF FIGHT TEXT HERE",
+    text: "Choose your weapon to fight the WOLF",
     friends: [],
     villains: [
       {
         sprite: "werewolf",
-        text: "hehe bat wolf",
+        text: "Feel my wrath! Awoooooooooooo",
       },
     ],
     multiple_choice: true,
-    damage: -30,
+    damage: -50,
     answers: [
       {
         text: "A Gun",
         point: 0,
-        image: "/foods/15_burger.png",
+        image: "/weapons/gun.png",
       },
       {
         text: "Wooden cross",
         point: 0,
-        image: "/foods/85_roastedchicken.png",
+        image: "/weapons/cross.png",
       },
     ],
   },
@@ -209,26 +209,31 @@ const kaphaStory = [
     ],
   },
   {
-    text: "Dracula fight",
+    text: "This is the final Battle, choose your weapon and decide the fate of humanity",
     friends: [],
-    villains: [],
+      villains: [
+      {
+        sprite: "dracula",
+        text: "This world Shall be Mine",
+      },
+    ],
     multiple_choice: true,
-    damage: -60,
+    damage: -100,
     answers: [
       {
         text: "Silver sword",
         point: 0,
-        image: "/foods/15_burger.png",
+        image: "/weapons/sword.png",
       },
       {
         text: "Vile of poison",
         point: 0,
-        image: "/foods/85_roastedchicken.png",
+        image: "/weapons/poison.png",
       },
       {
-        text: "Flashlight",
+        text: "Olympic torch",
         point: 0,
-        image: "/foods/85_roastedchicken.png",
+        image: "/weapons/olympic_torch.png",
       },
     ],
   },
