@@ -5,7 +5,7 @@ import { SpriteAnimator, useSprite } from "react-sprite-animator";
 
 function Character({
   action = "idle",
-  character = "wizard",
+  character = "wizard2",
   className,
   hover,
   ...props

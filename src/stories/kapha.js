@@ -1,6 +1,6 @@
 const kaphaStory = [
   {
-    text: "Tonight is the Resurrection of the lord of darkness, Dracula. As a legendary vampire hunter I'll have to stop it. But first I need to take care of the night creatures, so need to have my strength up. I'm craving sweets. What should I eat?",
+    text: "Tonight is the Resurrection of the Countess Dracula. As a legendary vampire hunter I'll have to stop it. But first I need to take care of the night creatures, so need to have my strength up. I'm craving sweets. What should I eat?",
     friends: [],
     damage: 0,
     answers: [
@@ -20,58 +20,58 @@ const kaphaStory = [
         image: "/foods/22_cheesecake.png",
       },
       {
-        text: "Fruit Salat",
+        text: "Fruit Salad",
         point: 10,
-        image: "/foods/61_jam.png",
+        image: "/foods/fruit_salad.png",
       },
     ],
   },
   {
-    text: "SKELETING FIGHTING TEXT HERE",
+    text: "Choose your weapon to fight the undead",
     friends: [],
     villains: [
       {
         sprite: "skeleton",
-        text: "hehe bat wolf",
+        text: "Dieeee Human",
         props: {
           frameCount: 6,
         },
       },
     ],
-    damage: -10,
+    damage: -20,
     answers: [
       {
         text: "Stone",
         point: 0,
-        image: "/foods/15_burger.png",
+        image: "/weapons/stone.png",
       },
       {
         text: "Axe",
         point: 0,
-        image: "/foods/85_roastedchicken.png",
+        image: "/weapons/axe.png",
       },
     ],
   },
   {
-    text: "It started raining in the forset, what should I do? Take a shelter or keep going ",
+    text: "It started raining in the forset, what should I do?",
     friends: [],
     villains: [],
     damage: 0,
     answers: [
       {
-        text: "Take a shelter",
+        text: "Take shelter from rain",
         point: 10,
-        image: "/foods/15_burger.png",
+        image: "/general/tree.png",
       },
       {
         text: "Keep going",
         point: -10,
-        image: "/foods/85_roastedchicken.png",
+        image: "/general/keep_going.png",
       },
     ],
   },
   {
-    text: "It started raining in the forset, what should I do? Take a shelter or keep going ",
+    text: "Found an exlixer made from the things I hate the most, leafy green vegetables, what should I do?",
     friends: [],
     villains: [],
     damage: 0,
@@ -79,44 +79,44 @@ const kaphaStory = [
       {
         text: "Drink ik, Yuk!",
         point: 10,
-        image: "/foods/15_burger.png",
+        image: "/foods/elixer.png",
       },
       {
         text: " No need, let's go on ahead",
         point: -10,
-        image: "/foods/85_roastedchicken.png",
+        image: "/general/keep_going.png",
       },
     ],
   },
   {
-    text: "BIG ARMOUR MAN TEXT HERE",
+    text: "Choose your weapon to fight the undead",
     friends: [],
     villains: [
       {
         sprite: "knight",
-        text: "BIG BIG MAN HERE",
+        text: "The living be cursed!",
         props: {
           height: 86,
           width: 108,
         },
       },
     ],
-    damage: -20,
+    damage: -30,
     answers: [
       {
-        text: "Whip",
+        text: "Bow & Arrow",
         point: 0,
-        image: "/foods/15_burger.png",
+        image: "/weapons/bow.png",
       },
       {
         text: "Sword",
         point: 0,
-        image: "/foods/85_roastedchicken.png",
+        image: "/weapons/sword.png",
       },
     ],
   },
   {
-    text: "IM TIRED",
+    text: "Phew, I sure am exhaused from all this fighting, I should take a small break, but what should I do?",
     friends: [],
     villains: [],
     damage: 0,
@@ -124,17 +124,12 @@ const kaphaStory = [
       {
         text: "Take a quick nap",
         point: -10,
-        image: "/foods/15_burger.png",
+        image: "/general/nap.png",
       },
       {
-        text: "No need, let's go on ahead",
+        text: "Have an Apple instead",
         point: -10,
-        image: "/foods/85_roastedchicken.png",
-      },
-      {
-        text: "Oh here is an Apple",
-        point: -10,
-        image: "/foods/85_roastedchicken.png",
+        image: "/foods/apple.png",
       },
     ],
   },
@@ -145,38 +140,38 @@ const kaphaStory = [
     damage: 0,
     answers: [
       {
-        text: "No one seems to be looking, let's take a BIG BITE HEHE!",
+        text: "let's take a BIG BITE HEHE!",
         point: -10,
-        image: "/foods/15_burger.png",
+        image: "/foods/steak.png",
       },
       {
-        text: "Seems like a trap, lets go",
+        text: "Seems like a trap, let's ignore",
         point: 10,
-        image: "/foods/85_roastedchicken.png",
+        image: "/general/keep_going.png",
       },
     ],
   },
   {
-    text: "WOLF FIGHT TEXT HERE",
+    text: "Choose your weapon to fight the WOLF",
     friends: [],
     villains: [
       {
         sprite: "werewolf",
-        text: "hehe bat wolf",
+        text: "Feel my wrath! Awoooooooooooo",
       },
     ],
     multiple_choice: true,
-    damage: -30,
+    damage: -50,
     answers: [
       {
         text: "A Gun",
         point: 0,
-        image: "/foods/15_burger.png",
+        image: "/weapons/gun.png",
       },
       {
         text: "Wooden cross",
         point: 0,
-        image: "/foods/85_roastedchicken.png",
+        image: "/weapons/cross.png",
       },
     ],
   },
@@ -214,26 +209,31 @@ const kaphaStory = [
     ],
   },
   {
-    text: "Dracula fight",
+    text: "This is the final Battle, choose your weapon and decide the fate of humanity",
     friends: [],
-    villains: [],
+      villains: [
+      {
+        sprite: "dracula",
+        text: "This world Shall be Mine",
+      },
+    ],
     multiple_choice: true,
-    damage: -60,
+    damage: -100,
     answers: [
       {
         text: "Silver sword",
         point: 0,
-        image: "/foods/15_burger.png",
+        image: "/weapons/sword.png",
       },
       {
         text: "Vile of poison",
         point: 0,
-        image: "/foods/85_roastedchicken.png",
+        image: "/weapons/poison.png",
       },
       {
-        text: "Flashlight",
+        text: "Olympic torch",
         point: 0,
-        image: "/foods/85_roastedchicken.png",
+        image: "/weapons/olympic_torch.png",
       },
     ],
   },
