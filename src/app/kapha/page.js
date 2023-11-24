@@ -64,7 +64,7 @@ const StepPage = (props) => {
       </audio>
 
       <div className="relative bg-[url('/backgrounds/game_background_1.png')] w-screen h-screen bg-cover bg-bottom ">
-        <Modal className="top-0" open={open}>
+        <Modal className="lg:bottom-0" open={open}>
           <div className="grid lg:grid-cols-12 grid-cols-1 gap-4 p-4">
             <div className="lg:col-span-3">
               <img
