@@ -214,7 +214,7 @@ const StepPage = (props) => {
               currentStep.villains.map((v, i) => {
                 return (
                   <div key={i} className="relative">
-                    <p className="text-xl p-4 rounded-md bg-black text-white absolute top-[20%] left-[50%]">
+                    <p className="text-xl p-4 rounded-md bg-black text-white absolute top-[-20px] left-0">
                       {v.text}
                       <div className="w-[20px] h-[20px] rotate-45 bg-black absolute left-[calc(50%_-_10px)] bottom-[-10px]"></div>
                     </p>
