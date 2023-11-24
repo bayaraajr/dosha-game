@@ -8,6 +8,7 @@
 body {
   background: url("/backgrounds/game_background_3.png");
   background-size: 100%;
+  background-repeat: no-repeat;
   animation: animation_loading 0.5s linear infinite;
 }
 
