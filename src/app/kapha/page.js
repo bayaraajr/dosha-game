@@ -9,6 +9,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { IoHeartSharp } from "react-icons/io5";
 import Modal from "@dosha/components/Modal";
+import Link from "next/link";
 
 const StepPage = (props) => {
   const [friends, setFriends] = useState([]);
@@ -297,11 +298,31 @@ const StepPage = (props) => {
         <p className="p-4 text-white bg-black">
           Nooooooooo, it cannot end like this, I should have kept my dosha in
           balance, humanity depends on me
+          <p className="">
+            Dosha score:
+            <span className="text-yellow-500 font-bold">{currentBalance}</span>
+          </p>
+          <Link
+            href="/"
+            className="bg-green-800 rounded text-slate-100 px-2 py-1"
+          >
+            New Game
+          </Link>
         </p>
       ) : (
         <p className="p-4 text-white bg-black">
           As long as evil creatures roam the earth, We hunters will be there to
           stop them!
+          <p className="">
+            Dosha score:
+            <span className="text-yellow-500 font-bold">{currentBalance}</span>
+          </p>
+          <Link
+            href="/"
+            className="bg-green-800 rounded text-slate-100 px-2 py-1"
+          >
+            New Game
+          </Link>
         </p>
       )}
       <Character

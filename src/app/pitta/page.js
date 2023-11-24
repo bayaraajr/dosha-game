@@ -326,10 +326,26 @@ const StepPage = (props) => {
   ) : (
     <div className="flex justify-center items-center flex-col h-screen">
       {currentHP <= 0 ? (
-        <p className="p-4 text-white bg-black">No! I am such a FAIIIILUREE!</p>
+        <p className="p-4 text-white bg-black">
+          No! I am such a FAIIIILUREE!
+          <p className="">
+            Dosha score:
+            <span className="text-yellow-500 font-bold">{currentBalance}</span>
+          </p>
+          <Link
+            href="/"
+            className="bg-green-800 rounded text-slate-100 px-2 py-1"
+          >
+            New Game
+          </Link>
+        </p>
       ) : (
         <p className="p-4 text-white text-4xl bg-black flex flex-col">
           Yoo! Bro I got accepted by MIU.
+          <p className="">
+            Dosha score:
+            <span className="text-yellow-500 font-bold">{currentBalance}</span>
+          </p>
           <Link
             href="/"
             className="bg-green-800 rounded text-slate-100 px-2 py-1"

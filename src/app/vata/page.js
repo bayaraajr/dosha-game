@@ -331,13 +331,13 @@ const StepPage = (props) => {
                 <span className="text-yellow-500 font-bold">
                   {currentBalance}
                 </span>
-                <Link
-                  href="/"
-                  className="bg-green-800 rounded text-slate-100 px-2 py-1"
-                >
-                  New Game
-                </Link>
               </p>
+              <Link
+                href="/"
+                className="bg-green-800 rounded text-slate-100 px-2 py-1"
+              >
+                New Game
+              </Link>
             </p>
           )}
           {!open && (
