@@ -4,8 +4,8 @@
 import Character from "@dosha/characters/Character";
 import Villain from "@dosha/characters/Villain";
 import Button from "@dosha/components/Button";
-import kapha from "@dosha/stories/kapha";
-import { useEffect, useState } from "react";
+import kapha from "@dosha/stories/pitta";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { IoHeartSharp } from "react-icons/io5";
 import Modal from "@dosha/components/Modal";
@@ -20,15 +20,28 @@ const StepPage = (props) => {
   const [currentBalance, setCurrentBalance] = useState(50);
   const [state, setState] = useState("walk");
   const [currentDmg, setCurrentDmg] = useState(null);
+  const [rndDamage, setRndDamage] = useState(null);
   const action = (a) => {
-    const dmg = a.point;
+    let dmg = a.point;
+    const randomDamage = Math.ceil(Math.random() * 10) > 1;
+    if (currentStep.random_damage && randomDamage) {
+      setRndDamage(currentStep.random_damage);
+      // dmg += Math.abs(currentStep.random_damage);
+    }
     if (a.type === "character") setFriends((f) => [...f, a]);
     setHistory((h) => [...h, a]);
     setCurrentDmg(dmg);
     if (dmg < 0) setState("dead");
     else setState("walking");
     if (currentBalance + dmg < 50) {
-      setCurrentHP((ch) => ch + currentStep.damage);
+      setCurrentHP(
+        (ch) =>
+          ch +
+          currentStep.damage +
+          (currentStep.random_damage && randomDamage
+            ? currentStep.random_damage.damage
+            : 0)
+      );
     }
     setCurrentBalance((balance) => {
       if (balance + dmg > 100) return 100;
@@ -47,7 +60,13 @@ const StepPage = (props) => {
     setCurrentStepIndex((i) => i + 1);
     setCurrentStep(kapha[currentStepIndex + 1]);
     setOpen(false);
+    setRndDamage(null)
   };
+
+  useLayoutEffect(() => {
+    document.body.style.background = 'url("/backgrounds/city.png")';
+    document.body.style.backgroundSize = "100%";
+  }, []);
   return !gameOver ? (
     <div className="grid lg:grid-cols-2 grid-cols-1">
       <Modal open={open}>
@@ -69,6 +88,16 @@ const StepPage = (props) => {
                       Ouch, you hurt your Dosha balance!
                     </p>
                     <b className="text-red-500 text-2xl">{currentDmg} DB</b>
+
+                    {rndDamage && (
+                      <p className="text-2xl text-white">
+                        Also you took &nbsp;
+                        <b className="text-red-500 text-2xl">
+                          {rndDamage.damage} damage.
+                        </b>
+                        &nbsp;because, {rndDamage.text}
+                      </p>
+                    )}
                   </div>
                 ) : (
                   <div>
@@ -89,6 +118,15 @@ const StepPage = (props) => {
                     </b>
                     , because you are out of balance
                   </p>
+                  {rndDamage && (
+                    <p className="text-2xl text-white">
+                      Also you took,
+                      <b className="text-red-500 text-2xl">
+                        {rndDamage.damage} damage
+                      </b>
+                      , because {rndDamage.text}
+                    </p>
+                  )}
                   <p className="text-white">
                     Current Dosha Balance:
                     <b
@@ -103,7 +141,7 @@ const StepPage = (props) => {
               ) : (
                 <div>
                   <p className="text-2xl text-white">
-                    Nothing happens, keep going! {currentStep.damage}
+                    Nothing happens, keep going!
                   </p>
                 </div>
               )
@@ -147,7 +185,7 @@ const StepPage = (props) => {
             Dosha Balance
           </p>
         </div>
-        <Button>Kapha hunter</Button>
+        <Button>Scholar Pitta</Button>
         <div className="flex justify-end items-center">
           <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-green-100 h-[20px] rounded-md">
             <div
@@ -158,24 +196,24 @@ const StepPage = (props) => {
           <IoHeartSharp className="text-red-500 text-xl ml-2" />
         </div>
       </div>
-      <div className="flex justify-center items-center">
+      <div className="absolute w-full bottom-4 left-4 flex justify-center items-center">
         {friends &&
           friends.map((v, i) => {
             return (
               <Character
                 key={i}
                 character={v.sprite}
-                action="attack_1"
                 scale={0.5}
                 frameCount={8}
                 fps={8}
                 className="-ml-36"
                 {...v.props}
+                action="idle"
               />
             );
           })}
         <Character
-          character="wizard"
+          character="swordsman"
           scale={0.5}
           action={
             currentDmg
@@ -193,7 +231,7 @@ const StepPage = (props) => {
           currentStep.villains.map((v, i) => {
             return (
               <div key={i} className="relative">
-                <p className="text-xl p-4 rounded-md bg-black text-white absolute top-[20%] left-[50%]">
+                <p className="text-xl p-4 rounded-md bg-black text-white absolute -top-12">
                   {v.text}
                   <div className="w-[20px] h-[20px] rotate-45 bg-black absolute left-[calc(50%_-_10px)] bottom-[-10px]"></div>
                 </p>
@@ -208,7 +246,7 @@ const StepPage = (props) => {
             );
           })}
       </div>
-      <div className="flex justify-center px-10 items-center">
+      <div className="col-span-2 flex justify-center px-10 items-center">
         <div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Button>{currentStep.text}</Button>
@@ -224,6 +262,7 @@ const StepPage = (props) => {
                   transition={{ delay: 0.2 + 0.1 * i }}
                 >
                   <div
+                    className="bg-black rounded-md"
                     key={a.text}
                     disabled={currentDmg}
                     onClick={() => action(a)}
@@ -264,16 +303,14 @@ const StepPage = (props) => {
   ) : (
     <div className="flex justify-center items-center flex-col h-screen">
       {currentHP <= 0 ? (
-        <p className="p-4 text-white bg-black">
-          Nooooooooo, it cannot end like this, I should have kept my dosha in
-          balance, humanity depends on me
-        </p>
+        <p className="p-4 text-white bg-black">No! I am such a FAIIIILUREE!</p>
       ) : (
-        <p className="p-4 text-white bg-black">
-          And we will be there to stop you, you can bet on that!
+        <p className="p-4 text-white text-4xl bg-black">
+          Yoo! Bro I got accepted by MIU.
         </p>
       )}
       <Character
+        className="absolute bottom-4"
         character="wizard"
         action={currentHP <= 0 ? "dead" : "jump"}
         stopLastFrame={currentHP <= 0}
