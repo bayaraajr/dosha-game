@@ -275,7 +275,7 @@ const StepPage = (props) => {
             <Button>{currentStep.text}</Button>
           </motion.div>
 
-          <div className="flex justify-evenly items-center text-xs md:text-base w-full overscroll-x-auto">
+          <div className="grid gap-4 grid-cols-2 lg:grid-cols-2">
             {currentStep.answers.map((a, i) => {
               return (
                 <motion.div
