@@ -51,9 +51,9 @@ const StepPage = (props) => {
 
   return !gameOver ? (
     <div>
-      <audio autoPlay controls>
-      <source src="music/castlevania.mp3" type="audio/mp3"/>
-    </audio>
+      <audio autoPlay controls className="hidden">
+        <source src="music/castlevania.mp3" type="audio/mp3" />
+      </audio>
 
       <div className="relative bg-[url('/backgrounds/game_background_1.png')] w-screen h-screen bg-cover bg-bottom ">
         <div className="grid lg:grid-cols-2 grid-cols-1">
@@ -82,7 +82,9 @@ const StepPage = (props) => {
                         <p className="text-4xl text-white">
                           Great job! You have chosen correct item!
                         </p>
-                        <b className="text-green-400 text-2xl">+{currentDmg} DB</b>
+                        <b className="text-green-400 text-2xl">
+                          +{currentDmg} DB
+                        </b>
                       </div>
                     )}
                   </>
@@ -100,10 +102,14 @@ const StepPage = (props) => {
                         Current Dosha Balance:
                         <b
                           className={
-                            currentBalance >= 50 ? "text-green-500" : "text-red-500"
+                            currentBalance >= 50
+                              ? "text-green-500"
+                              : "text-red-500"
                           }
                         >
-                          {currentBalance >= 50 ? " In Balance" : " Out of balance"}
+                          {currentBalance >= 50
+                            ? " In Balance"
+                            : " Out of balance"}
                         </b>
                       </p>
                     </div>
@@ -117,17 +123,21 @@ const StepPage = (props) => {
                 ) : (
                   <div>
                     <p className="text-2xl text-white">
-                      Yay! You will not take a damage, cause your dosha is in balance.{" "}
-                      <b className="text-green-500">Keep going!</b>
+                      Yay! You will not take a damage, cause your dosha is in
+                      balance. <b className="text-green-500">Keep going!</b>
                     </p>
                     <p className="text-white">
                       Current Dosha Balance:
                       <b
                         className={
-                          currentBalance >= 50 ? "text-green-500" : "text-red-500"
+                          currentBalance >= 50
+                            ? "text-green-500"
+                            : "text-red-500"
                         }
                       >
-                        {currentBalance >= 50 ? " In Balance" : " Out of balance"}
+                        {currentBalance >= 50
+                          ? " In Balance"
+                          : " Out of balance"}
                       </b>
                     </p>
                   </div>
@@ -190,10 +200,10 @@ const StepPage = (props) => {
                     ? "hurt"
                     : "run"
                   : currentStep.villains && currentStep.villains.length > 0
-                    ? "attack_3"
-                    : "idle"
+                  ? "attack_3"
+                  : "idle"
               }
-            //   stopLastFrame={currentDmg < 0}
+              //   stopLastFrame={currentDmg < 0}
             />
 
             {currentStep.villains &&
@@ -247,7 +257,12 @@ const StepPage = (props) => {
                           className="flex justify-center p-4 items-center flex-col"
                         >
                           {a.image && (
-                            <img height="64" width="64" src={a.image} alt="Herb1" />
+                            <img
+                              height="64"
+                              width="64"
+                              src={a.image}
+                              alt="Herb1"
+                            />
                           )}
                           {a.type === "character" && (
                             <Character
@@ -258,7 +273,9 @@ const StepPage = (props) => {
                               {...a.props}
                             />
                           )}
-                          <p className="text-center text-white text-xl">{a.text}</p>
+                          <p className="text-center text-white text-xl">
+                            {a.text}
+                          </p>
                         </motion.div>
                       </div>
                     </motion.div>
@@ -279,7 +296,8 @@ const StepPage = (props) => {
         </p>
       ) : (
         <p className="p-4 text-white bg-black">
-          As long as evil creatures roam the earth, We hunters will be there to stop them!
+          As long as evil creatures roam the earth, We hunters will be there to
+          stop them!
         </p>
       )}
       <Character
