@@ -2,12 +2,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import React from "react";
 
-const Modal = ({ open, onClose, children, ...props }) => {
+const Modal = ({ open, onClose, children, className, ...props }) => {
   return (
     <AnimatePresence>
       {open && (
         <motion.div
-          className="bg-black z-[9999] p-4 w-full fixed bottom-0 left-0"
+          className={`bg-black z-[9999] p-4 w-full fixed bottom-0 left-0 ${className}`}
           initial={{ y: "100%" }}
           animate={{ y: 0 }}
           exit={{ y: "100%" }}

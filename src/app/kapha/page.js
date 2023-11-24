@@ -52,6 +52,9 @@ const StepPage = (props) => {
   useLayoutEffect(() => {
     var audio = document.getElementById("audio");
     audio.volume = 0.1;
+    document.body.style.background =
+      'url("/backgrounds/game_background_1.png")';
+    document.body.style.backgroundSize = "100%";
   }, []);
 
   return !gameOver ? (
@@ -61,75 +64,46 @@ const StepPage = (props) => {
       </audio>
 
       <div className="relative bg-[url('/backgrounds/game_background_1.png')] w-screen h-screen bg-cover bg-bottom ">
-        <div className="grid lg:grid-cols-2 grid-cols-1">
-          <Modal open={open}>
-            <div className="grid grid-cols-12 gap-4 p-4">
-              <div className="col-span-2">
-                <img
-                  src="/vata/faces/fire-pitta.png"
-                  height={140}
-                  width={140}
-                  alt="pitta"
-                />
-              </div>
-              <div className="col-span-9">
-                {currentDmg ? (
-                  <>
-                    {currentDmg < 0 ? (
-                      <div>
-                        <p className="text-4xl text-white">
-                          Ouch, you hurt your Dosha balance!
-                        </p>
-                        <b className="text-red-500 text-2xl">{currentDmg} DB</b>
-                      </div>
-                    ) : (
-                      <div>
-                        <p className="text-4xl text-white">
-                          Great job! You have chosen correct item!
-                        </p>
-                        <b className="text-green-400 text-2xl">
-                          +{currentDmg} DB
-                        </b>
-                      </div>
-                    )}
-                  </>
-                ) : currentBalance < 50 ? (
-                  currentStep.damage < 0 ? (
+        <Modal className="top-0" open={open}>
+          <div className="grid lg:grid-cols-12 grid-cols-1 gap-4 p-4">
+            <div className="lg:col-span-3">
+              <img
+                src="/vata/faces/fire-pitta.png"
+                height={140}
+                width={140}
+                alt="pitta"
+              />
+            </div>
+            <div className="lg:col-span-9">
+              {currentDmg ? (
+                <>
+                  {currentDmg < 0 ? (
                     <div>
-                      <p className="text-2xl text-white">
-                        You took
-                        <b className="text-red-500 text-2xl">
-                          {currentStep.damage} damage
-                        </b>
-                        , because your dosha is out of balance
+                      <p className="text-4xl text-white">
+                        Ouch, you hurt your Dosha balance!
                       </p>
-                      <p className="text-white">
-                        Current Dosha Balance:
-                        <b
-                          className={
-                            currentBalance >= 50
-                              ? "text-green-500"
-                              : "text-red-500"
-                          }
-                        >
-                          {currentBalance >= 50
-                            ? " In Balance"
-                            : " Out of balance"}
-                        </b>
-                      </p>
+                      <b className="text-red-500 text-2xl">{currentDmg} DB</b>
                     </div>
                   ) : (
                     <div>
-                      <p className="text-2xl text-white">
-                        Nothing happens, keep going! {currentStep.damage}
+                      <p className="text-4xl text-white">
+                        Great job! You have chosen correct item!
                       </p>
+                      <b className="text-green-400 text-2xl">
+                        +{currentDmg} DB
+                      </b>
                     </div>
-                  )
-                ) : (
+                  )}
+                </>
+              ) : currentBalance < 50 ? (
+                currentStep.damage < 0 ? (
                   <div>
                     <p className="text-2xl text-white">
-                      Yay! You will not take a damage, cause your dosha is in
-                      balance. <b className="text-green-500">Keep going!</b>
+                      You took
+                      <b className="text-red-500 text-2xl">
+                        {currentStep.damage} damage
+                      </b>
+                      , because your dosha is out of balance
                     </p>
                     <p className="text-white">
                       Current Dosha Balance:
@@ -146,20 +120,45 @@ const StepPage = (props) => {
                       </b>
                     </p>
                   </div>
-                )}
-
-                <div className="flex justify-end items-center">
-                  <Button onClick={nextScenario} className="text-4xl">
-                    Next
-                  </Button>
+                ) : (
+                  <div>
+                    <p className="text-2xl text-white">
+                      Nothing happens, keep going! {currentStep.damage}
+                    </p>
+                  </div>
+                )
+              ) : (
+                <div>
+                  <p className="text-2xl text-white">
+                    Yay! You will not take a damage, cause your dosha is in
+                    balance. <b className="text-green-500">Keep going!</b>
+                  </p>
+                  <p className="text-white">
+                    Current Dosha Balance:
+                    <b
+                      className={
+                        currentBalance >= 50 ? "text-green-500" : "text-red-500"
+                      }
+                    >
+                      {currentBalance >= 50 ? " In Balance" : " Out of balance"}
+                    </b>
+                  </p>
                 </div>
+              )}
+
+              <div className="flex justify-end items-center">
+                <Button onClick={nextScenario} className="text-4xl">
+                  Next
+                </Button>
               </div>
             </div>
-          </Modal>
+          </div>
+        </Modal>
 
-          <div className="col-span-2 flex justify-between p-10 items-center">
+        <div className="grid lg:grid-cols-2 grid-cols-1">
+          <div className="lg:col-span-2 flex justify-between p-10 items-center">
             <div>
-              <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-cyan-100 h-[20px] rounded-md">
+              <div className="relative w-[100px] lg:w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-cyan-100 lg:h-[20px] h-[10px] rounded-md">
                 <div
                   style={{ width: `${currentBalance}%` }}
                   className={`absolute bg-cyan-600 h-[20px]`}
@@ -169,9 +168,9 @@ const StepPage = (props) => {
                 Dosha Balance
               </p>
             </div>
-            <Button>Kapha hunter</Button>
+            <Button className="lg:block hidden">Kapha hunter</Button>
             <div className="flex justify-end items-center">
-              <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-green-100 h-[20px] rounded-md">
+              <div className="relative w-[100px] lg:w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-green-100 h-[10px] lg:h-[20px] rounded-md">
                 <div
                   style={{ width: `${currentHP}%` }}
                   className={`absolute bg-green-600 h-[20px]`}
