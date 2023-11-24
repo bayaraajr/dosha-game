@@ -5,7 +5,7 @@ import Character from "@dosha/characters/Character";
 import Villain from "@dosha/characters/Villain";
 import Button from "@dosha/components/Button";
 import kapha from "@dosha/stories/kapha";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { IoHeartSharp } from "react-icons/io5";
 import Modal from "@dosha/components/Modal";
@@ -49,10 +49,15 @@ const StepPage = (props) => {
     setOpen(false);
   };
 
+  useLayoutEffect(() => {
+    var audio = document.getElementById("audio");
+    audio.volume = 0.1;
+  }, []);
+
   return !gameOver ? (
     <div>
-      <audio autoPlay controls className="hidden">
-        <source src="music/castlevania.mp3" type="audio/mp3" />
+      <audio autoPlay controls className="hidden" id="audio">
+        <source src="/music/castlevania.mp3" type="audio/mp3" />
       </audio>
 
       <div className="relative bg-[url('/backgrounds/game_background_1.png')] w-screen h-screen bg-cover bg-bottom ">

@@ -311,7 +311,7 @@ const StepPage = (props) => {
       )}
       <Character
         className="absolute bottom-4"
-        character="wizard"
+        character="swordsman"
         action={currentHP <= 0 ? "dead" : "jump"}
         stopLastFrame={currentHP <= 0}
         frameCount={4}
