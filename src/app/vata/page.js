@@ -2,13 +2,12 @@
 "use client";
 
 import Character from "@dosha/characters/Character";
-import Villain from "@dosha/characters/Villain";
 import Button from "@dosha/components/Button";
 import kapha from "@dosha/stories/vata";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { IoHeartSharp } from "react-icons/io5";
-import Modal from "@dosha/components/Modal";
+import Modal from "@dosha/components/ModalVata";
 
 const StepPage = (props) => {
   const [friends, setFriends] = useState([]);
@@ -23,19 +22,18 @@ const StepPage = (props) => {
   const action = (a) => {
     const dmg = a.point;
     if (a.type === "character") setFriends((f) => [...f, a]);
+
     setHistory((h) => [...h, a]);
     setCurrentDmg(dmg);
-    if (dmg < 0) setState("dead");
-    else setState("walking");
+    if (currentHP <= 0) {
+      setState("dead");
+      setGameOver(true);
+    } else setState("walking");
     if (currentBalance + dmg < 50) {
       setCurrentHP((ch) => ch + currentStep.damage);
     }
-    setCurrentBalance((balance) => {
-      if (balance + dmg > 100) return 100;
-      if (balance + dmg < 0) return 0;
 
-      return balance + dmg;
-    });
+    if (dmg) setCurrentBalance((balance) => balance + dmg);
     setOpen(true);
   };
 
@@ -48,13 +46,13 @@ const StepPage = (props) => {
     setCurrentStep(kapha[currentStepIndex + 1]);
     setOpen(false);
   };
-  return !gameOver ? (
-    <div className="grid lg:grid-cols-2 grid-cols-1">
+  return (
+    <>
       <Modal open={open}>
         <div className="grid grid-cols-12 gap-4 p-4">
           <div className="col-span-2">
             <img
-              src="/vata/faces/fire-pitta.png"
+              src="/vata/faces/thunder-vata.png"
               height={140}
               width={140}
               alt="pitta"
@@ -80,7 +78,7 @@ const StepPage = (props) => {
                 )}
               </>
             ) : currentBalance < 50 ? (
-              currentStep.damage < 0 ? (
+              currentStep.damage && currentStep.damage < 0 ? (
                 <div>
                   <p className="text-2xl text-white">
                     You took
@@ -103,7 +101,8 @@ const StepPage = (props) => {
               ) : (
                 <div>
                   <p className="text-2xl text-white">
-                    Nothing happens, keep going! {currentStep.damage}
+                    Nothing happens, keep going!{" "}
+                    {currentStep.damage && currentStep.damage}
                   </p>
                 </div>
               )
@@ -134,151 +133,209 @@ const StepPage = (props) => {
           </div>
         </div>
       </Modal>
+      {!gameOver ? (
+        <div className="relative bg-[url('/backgrounds/game_background_3.png')] w-screen h-screen bg-cover bg-bottom ">
+          <div className="fixed top-0 flex gap-2 justify-between p-4 items-center w-full flex-col lg:flex-row">
+            <div>
+              <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-cyan-100 h-[20px] rounded-md">
+                <div
+                  style={{ width: `${currentBalance}%` }}
+                  className={`absolute bg-cyan-600 h-[20px]`}
+                ></div>
+              </div>
+              <p className="text-white text-center bg-black mt-1 rounded-xl">
+                Dosha Balance {currentBalance}
+              </p>
+            </div>
+            <Button className="-order-1 lg:order-none">Kapha</Button>
+            <div className="flex justify-end items-center">
+              <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-green-100 h-[20px] rounded-md">
+                <div
+                  style={{ width: `${currentHP}%` }}
+                  className={`absolute bg-green-600 h-[20px]`}
+                ></div>
+              </div>
+              <IoHeartSharp className="text-red-500 text-xl ml-2" />
+            </div>
+          </div>
+          <div className="flex justify-between items-center h-screen px-2 lg:px-40 overflow-x-auto">
+            <div className="flex flex-col gap-2">
+              <div className="w-28 h-28 relative overflow-hidden ">
+                <Character
+                  character="thunder_vata"
+                  className="absolute object-contain left-1/2 -translate-x-1/2 bottom-0"
+                  scale={0.5}
+                  width={288}
+                  height={128}
+                  frameCount={8}
+                  action={
+                    currentDmg
+                      ? currentDmg < 0
+                        ? "hurt"
+                        : "idle"
+                      : currentStep.villains && currentStep.villains.length > 0
+                      ? "attack"
+                      : "idle"
+                  }
+                  stopLastFrame={currentDmg < 0}
+                />
+              </div>
+              {friends &&
+                friends.map((v, i) => {
+                  return (
+                    <div key={i} className="w-28 h-28 relative overflow-hidden">
+                      <Character
+                        character={v.sprite}
+                        className="absolute object-contain left-1/2 -translate-x-1/2 bottom-0"
+                        scale={0.5}
+                        width={288}
+                        height={128}
+                        frameCount={v.props.idleFrameCount}
+                        fps={8}
+                        // className="-scale-x-[1]"
+                        {...v.props}
+                        action="idle"
+                      />
+                    </div>
+                  );
+                })}
+            </div>
 
-      <div className="col-span-2 flex justify-between p-10 items-center">
-        <div>
-          <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-cyan-100 h-[20px] rounded-md">
-            <div
-              style={{ width: `${currentBalance}%` }}
-              className={`absolute bg-cyan-600 h-[20px]`}
-            ></div>
+            <div className="flex justify-center items-center ">
+              {currentStep.villians &&
+                currentStep.villians.map((v, i) => {
+                  return (
+                    <Character
+                      character={v.sprite}
+                      key={i}
+                      action="idle"
+                      frameCount={9}
+                      scale={1}
+                      {...v.props}
+                    />
+                  );
+                })}
+            </div>
           </div>
-          <p className="text-white text-center bg-black mt-1 rounded-xl">
-            Dosha Balance
-          </p>
-        </div>
-        <Button>Kapha</Button>
-        <div className="flex justify-end items-center">
-          <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-green-100 h-[20px] rounded-md">
-            <div
-              style={{ width: `${currentHP}%` }}
-              className={`absolute bg-green-600 h-[20px]`}
-            ></div>
-          </div>
-          <IoHeartSharp className="text-red-500 text-xl ml-2" />
-        </div>
-      </div>
-      <div className="flex justify-center items-center">
-        {friends &&
-          friends.map((v, i) => {
-            return (
-              <Character
-                key={i}
-                character={v.sprite}
-                action="idle"
-                scale={0.5}
-                frameCount={16}
-                fps={8}
-                // className="-scale-x-[1]"
-                {...v.props}
+
+          <div className="absolute items-start bottom-0 left-1/2 -translate-x-1/2 bg-slate-900 rounded w-full">
+            <div className="flex">
+              <img
+                src={
+                  currentStep.character == "friend1"
+                    ? friends[0] && friends[0].face
+                    : currentStep.character == "dragon"
+                    ? "/vata/faces/dragon.png"
+                    : "/vata/faces/thunder-vata.png"
+                }
+                height={140}
+                width={140}
+                className="object-contain"
+                alt="pitta"
               />
-            );
-          })}
-        <Character
-          character="wizard"
-          scale={0.5}
-          action={
-            currentDmg
-              ? currentDmg < 0
-                ? "hurt"
-                : "run"
-              : currentStep.villains && currentStep.villains.length > 0
-              ? "attack_3"
-              : "idle"
-          }
-          //   stopLastFrame={currentDmg < 0}
-        />
-      </div>
-      <div className="flex justify-center px-10 items-center">
-        <div>
-          {currentStep.villains &&
-            currentStep.villains.map((v, i) => {
-              return (
-                <div key={i} className="relative">
-                  <p className="text-xl p-4 rounded-md bg-black text-white absolute top-[20%] left-[50%]">
-                    {v.text}
-                    <div className="w-[20px] h-[20px] rotate-45 bg-black absolute left-[calc(50%_-_10px)] bottom-[-10px]"></div>
-                  </p>
-                  <Character
-                    character={v.sprite}
-                    action="attack_2"
-                    scale={0.5}
-                    className="-scale-x-[1]"
-                    {...v.props}
-                  />
-                </div>
-              );
-            })}
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <Button>{currentStep.text}</Button>
-          </motion.div>
-
-          <div className="flex justify-evenly items-center">
-            {currentStep.answers.map((a, i) => {
-              return (
-                <motion.div
-                  key={i}
-                  initial={{ y: 30, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.2 + 0.1 * i }}
-                >
-                  <div
-                    key={a.text}
-                    disabled={currentDmg}
-                    onClick={() => action(a)}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                <Button>
+                  {currentStep.type == "custom"
+                    ? currentStep.text(friends[0] && friends[0].sprite)
+                    : currentStep.text}
+                </Button>
+              </motion.div>
+            </div>
+            <div className="grid grid-cols-2 lg:grid-cols-4 w-full justify-evenly items-center overflow-x-auto">
+              {(currentStep.type == "custom"
+                ? currentStep.answers(friends[0] && friends[0].sprite)
+                : currentStep.answers || []
+              ).map((a, i) => {
+                return (
+                  <motion.div
+                    key={i}
+                    initial={{ y: 30, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2 + 0.1 * i }}
                   >
-                    <motion.div
-                      initial={{ y: 0 }}
-                      animate={{ y: 10 }}
-                      transition={{
-                        delay: 0.1 * i,
-                        type: "spring",
-                        repeat: Infinity,
-                        duration: 2,
-                      }}
-                      className="flex justify-center p-4 items-center flex-col"
+                    <div
+                      key={a.text}
+                      disabled={currentDmg}
+                      onClick={() => action(a)}
                     >
-                      {a.image && (
-                        <img height="64" width="64" src={a.image} alt="Herb1" />
-                      )}
-                      {a.type === "character" && (
-                        <Character
-                          character={a.sprite}
-                          action="idle"
-                          scale={0.5}
-                          className="-mt-10 -mx-36 -scale-x-[1]"
-                          {...a.props}
-                        />
-                      )}
-                      <p className="text-center text-white text-xl">{a.text}</p>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              );
-            })}
+                      <motion.div
+                        initial={{ y: 0 }}
+                        animate={{ y: 10 }}
+                        transition={{
+                          delay: 0.1 * i,
+                          type: "spring",
+                          repeat: Infinity,
+                          duration: 2,
+                        }}
+                        className="flex justify-center p-4 items-center flex-col"
+                      >
+                        {a.image && (
+                          <img
+                            height="64"
+                            width="64"
+                            src={a.image}
+                            alt="Herb1"
+                          />
+                        )}
+                        {a.type === "character" && (
+                          <div className="w-72 h-32 relative overflow-hidden">
+                            <Character
+                              character={a.sprite}
+                              action="idle"
+                              scale={0.5}
+                              className="absolute object-contain left-1/2 -translate-x-1/2 bottom-0"
+                              {...a.props}
+                            />
+                          </div>
+                        )}
+                        <p
+                          className={`text-center text-white text-xl ${
+                            !a.image &&
+                            a.type !== "character" &&
+                            "border border-slate-50 rounded px-2 py-1"
+                          }`}
+                        >
+                          {a.text}
+                        </p>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  ) : (
-    <div className="flex justify-center items-center flex-col h-screen">
-      {currentHP <= 0 ? (
-        <p className="p-4 text-white bg-black">
-          Nooooooooo, it cannot end like this, I should have kept my dosha in
-          balance, humanity depends on me
-        </p>
       ) : (
-        <p className="p-4 text-white bg-black">
-          And we will be there to stop you, you can bet on that!
-        </p>
+        <div className="flex justify-center items-center flex-col bg-[url('/backgrounds/game_background_3.png')] w-screen h-screen bg-cover bg-bottom">
+          {currentHP <= 0 ? (
+            <p className="p-4 text-white bg-black text-lg">
+              Nooooooooo, it cannot end like this, I should have kept my dosha
+              in balance, humanity depends on me
+            </p>
+          ) : (
+            <p className="p-4 text-white bg-black text-2xl">
+              And we will be there to stop you, you can bet on that!
+              <p className="">
+                Dosha score:
+                <span className="text-yellow-500 font-bold">
+                  {currentBalance}
+                </span>
+              </p>
+            </p>
+          )}
+          {!open && (
+            <Character
+              character="thunder_vata"
+              width={288}
+              height={128}
+              action={currentHP <= 0 ? "dead" : "jump"}
+              stopLastFrame={currentHP <= 0}
+              frameCount={currentHP <= 0 ? 12 : 11}
+            />
+          )}
+        </div>
       )}
-      <Character
-        character="wizard"
-        action={currentHP <= 0 ? "dead" : "jump"}
-        stopLastFrame={currentHP <= 0}
-        frameCount={4}
-      />
-    </div>
+    </>
   );
 };
 

@@ -15,7 +15,7 @@ const vataFriends = {
         },
         {
           text: "Calm down my friend. I will wait you for 30 minutes. Then let’s practice",
-          point: 0,
+          point: 5,
         },
         {
           text: "Drink this iced cola! Let's do some practice after you calm down.",
@@ -23,7 +23,7 @@ const vataFriends = {
         },
         {
           text: "Eat this hot soup! Let's do some practice after you calm down.",
-          point: 0,
+          point: -5,
         },
       ],
       kapha: [
@@ -33,7 +33,7 @@ const vataFriends = {
         },
         {
           text: "Wait him until afternoon.",
-          point: 0,
+          point: -5,
         },
         {
           text: "Put a awesome fried beef steak front of the bed. He might be smell it and wake up.",
@@ -42,7 +42,6 @@ const vataFriends = {
       ],
     },
   },
-  friend2: {},
 };
 
 const vataStory = [
@@ -54,17 +53,17 @@ const vataStory = [
       {
         text: "Bread, orange juice with iced cubes",
         point: -10,
-        image: "/foods/15_burger.png",
+        image: "/foods/08_bread_dish.png",
       },
       {
         text: "mozzarella cheese, hot tea",
         point: 10,
-        image: "/foods/85_roastedchicken.png",
+        image: "/foods/22_cheesecake.png",
       },
       {
         text: "Corn and milk",
         point: -8,
-        image: "/foods/22_cheesecake.png",
+        image: "/foods/84_popcorn_bowl.png",
       },
     ],
   },
@@ -76,17 +75,17 @@ const vataStory = [
       {
         text: "Yoga",
         point: 10,
-        image: "/foods/15_burger.png",
+        image: "/activities/yoga.png",
       },
       {
         text: "Karate",
         point: -10,
-        image: "/foods/85_roastedchicken.png",
+        image: "/activities/karate.png",
       },
       {
         text: "Basketball",
         point: -10,
-        image: "/foods/22_cheesecake.png",
+        image: "/activities/basketball.png",
       },
     ],
   },
@@ -94,86 +93,59 @@ const vataStory = [
     text: "Woo, I am ready to fight! But I need a partner. Let’s call one of my friend who able to learn vata-jitsu quickly!",
     friends: [],
     damage: 0,
-    // answers: [
-
-    //   {
-    //     text: "FirePitta",
-    //     point: 10,
-    //     type: "character",
-    //     sprite: "vata_hunter",
-    //     action: () => {
-    //       vataFriends.friend1.name = "FirePitta";
-    //     },
-    //     frame: {
-    //       w: 288,
-    //       h: 128,
-    //       c: 3,
-    //     },
-    //   },
-    //   {
-    //     text: "EarhKapha",
-    //     point: -10,
-    //     type: "character",
-    //     sprite: "pitta_huntress",
-    //     action: () => {
-    //       vataFriends.friend1.name = "EarhKapha";
-    //     },
-    //     frame: {
-    //       w: 288,
-    //       h: 128,
-    //       c: 3,
-    //     },
-    //   },
-    // ],
     answers: [
       {
         text: "Earth Kapha",
-        point: 0,
+        point: -5,
         sprite: "earth_kapha",
         type: "character",
+        face: "vata/faces/earth-kapha.png",
         props: {
           height: 128,
           width: 288,
           action: "attack",
           frameCount: 25,
+          idleFrameCount: 16,
         },
       },
       {
         text: "Fire Pitta",
-        point: 0,
+        point: 10,
         sprite: "fire_pitta",
         type: "character",
+        face: "vata/faces/fire-pitta.png",
         props: {
           action: "attack",
           height: 128,
           width: 288,
           frameCount: 18,
+          idleFrameCount: 8,
         },
       },
     ],
   },
-  // {
-  //   text:
-  //     vataFriends.friend1.name == "FirePitta"
-  //       ? vataFriends.friend1.question.pitta
-  //       : vataFriends.friend1.question.kapha,
-  //   friends: [],
-  //   damage: 0,
-  //   answers:
-  //     vataFriends.friend1.name == "FirePitta"
-  //       ? vataFriends.friend1.answers.pitta
-  //       : vataFriends.friend1.answers.kapha,
-  // },
-  // {
-  //   text: "Yeah! We've done our workout.",
-  //   friends: [
-  //     {
-  //       name: vataFriends.friend1.name,
-  //       text: "We need someone who has 80 years of experience to kill dragons.",
-  //     },
-  //   ],
-  //   damage: 0,
-  // },
+  {
+    type: "custom",
+    text: (name) =>
+      name == "fire_pitta"
+        ? vataFriends.friend1.question.pitta
+        : vataFriends.friend1.question.kapha,
+    friends: [],
+    damage: 0,
+    answers: (name) =>
+      name == "fire_pitta"
+        ? vataFriends.friend1.answers.pitta
+        : vataFriends.friend1.answers.kapha,
+  },
+  {
+    character: "friend1",
+    text: "We need someone who has 80 years of experience to kill dragons.",
+    answers: [
+      {
+        text: "Yes",
+      },
+    ],
+  },
   {
     text: "Oh, yeah. Let’s ask for join another friend.",
     friends: [],
@@ -181,59 +153,69 @@ const vataStory = [
     answers: [
       {
         text: "Legendary Pitta",
-        point: 0,
-        sprite: "pitta_huntress",
+        point: 5,
+        sprite: "fire_pitta",
         type: "character",
+        face: "vata/faces/fire-pitta.png",
+        props: {
+          action: "attack",
+          height: 128,
+          width: 288,
+          frameCount: 18,
+          idleFrameCount: 8,
+        },
       },
       {
         text: "Huricane Vata",
-        point: 0,
+        point: -10,
         sprite: "huricane_vata",
         type: "character",
+        face: "vata/faces/hurricane-vata.png",
         props: {
           height: 128,
           width: 288,
           action: "attack",
           frameCount: 7,
+          idleFrameCount: 8,
         },
       },
       {
         text: "Water Kapha",
-        point: 0,
+        point: 10,
         sprite: "water_kapha",
         type: "character",
+        face: "vata/faces/water-kapha.png",
         props: {
           height: 128,
           width: 288,
           action: "attack",
           frameCount: 32,
+          idleFrameCount: 8,
         },
       },
     ],
   },
   {
-    text: "Let's fight!",
+    character: "dragon",
+    text: "Hahahaha! Let’s kill those little insects!",
     friends: [],
     villians: [
       {
         sprite: "dragon",
         text: "Hahahaha! Let’s kill those little insects!",
         props: {
-          frameCount: 9,
+          height: 445,
+          width: 725,
+          frameCount: 18,
+          action: "attack",
         },
       },
     ],
     damage: -50,
     answers: [
       {
-        text: "A Gun",
+        text: "Attack",
         point: 0,
-        image: "/foods/15_burger.png",
-      },
-      {
-        text: "Wooden cross",
-        point: 0,
-        image: "/foods/85_roastedchicken.png",
       },
     ],
   },
@@ -243,42 +225,60 @@ const vataStory = [
     answers: [
       {
         text: "Peanuts",
+        image: "/fruits/peanuts.png",
         point: -10,
       },
       {
         text: "Pineapple",
+        image: "/fruits/pineapple.png",
         point: 10,
       },
       {
         text: "Oranges",
+        image: "/fruits/orange.png",
         point: 10,
       },
       {
         text: "Watermelon",
+        image: "/fruits/watermelon.png",
         point: -10,
+      },
+    ],
+    villians: [
+      {
+        sprite: "dragon",
+        text: "Hahahaha! Let’s kill those little insects!",
+        props: {
+          height: 445,
+          width: 725,
+          frameCount: 9,
+          action: "idle",
+        },
       },
     ],
     damage: 0,
   },
   {
-    text: "Dragon is attacking!!",
+    character: "dragon",
+    text: "Hahahaha! Take this!",
     friends: [],
     villians: [
       {
+        sprite: "dragon",
         text: "Hahahaha! Take this!",
+        props: {
+          height: 445,
+          width: 725,
+          frameCount: 18,
+          action: "attack",
+        },
       },
     ],
     damage: -30,
     answers: [
       {
-        text: "A Gun",
+        text: "Attack",
         point: 0,
-        image: "/foods/15_burger.png",
-      },
-      {
-        text: "Wooden cross",
-        point: 0,
-        image: "/foods/85_roastedchicken.png",
       },
     ],
   },
@@ -289,74 +289,120 @@ const vataStory = [
     answers: [
       {
         text: "Use pranayama breathing for hurricane damage",
-        point: -10,
+        point: 10,
       },
       {
         text: "Run like a speed light and attack tornado",
-        point: 10,
+        point: -10,
       },
       {
         text: "Make snow and cover your body, then attack with freezing wind",
-        point: 10,
+        point: -20,
       },
     ],
-    damage: 0,
+    villians: [
+      {
+        sprite: "dragon",
+        text: "Hahahaha! Take this!",
+        props: {
+          height: 445,
+          width: 725,
+          frameCount: 18,
+          action: "attack",
+        },
+      },
+    ],
+    damage: -30,
   },
   {
-    text: "Dragon is attacking!!",
+    character: "dragon",
+    text: "You can't defeat me!",
     friends: [],
     villians: [
       {
-        text: "Hahahaha! Take this!",
+        sprite: "dragon",
+        text: "You can't defeat me!",
+        props: {
+          height: 445,
+          width: 725,
+          frameCount: 18,
+          action: "attack",
+        },
       },
     ],
     damage: -50,
     answers: [
       {
-        text: "A Gun",
+        text: "Attack",
         point: 0,
-        image: "/foods/15_burger.png",
-      },
-      {
-        text: "Wooden cross",
-        point: 0,
-        image: "/foods/85_roastedchicken.png",
       },
     ],
   },
 
   {
-    text: "Yeahh! We did it :)",
+    character: "dragon",
+    text: "Are you a transcendental walker!",
     friends: [],
     villians: [
-      { text: "Are you a transcendental walker!" },
-      { text: "My friends will kill you tomorrow! Ahhhhhh…." },
+      {
+        text: "Are you a transcendental walker!",
+        sprite: "dragon",
+        props: {
+          height: 445,
+          width: 725,
+          frameCount: 9,
+          action: "idle",
+        },
+      },
     ],
 
     damage: 0,
     answers: [
       {
-        text: "A Gun",
+        text: "No",
         point: 0,
-        image: "/foods/15_burger.png",
+      },
+      {
+        text: "Yes",
+        point: 1,
+      },
+    ],
+  },
+
+  {
+    character: "dragon",
+    text: "My friends will kill you tomorrow! Ahhhhhh…!",
+    friends: [],
+    villians: [
+      {
+        text: "My friends will kill you tomorrow! Ahhhhhh….",
+        sprite: "dragon",
+        props: {
+          height: 445,
+          width: 725,
+          frameCount: 9,
+          action: "idle",
+        },
+      },
+    ],
+
+    damage: 0,
+    answers: [
+      {
+        text: "Next",
+        point: 0,
       },
     ],
   },
   {
-    text: "Yeah, we won!!!! Tomorrow morning, we have to fight again! It’s 20:00",
+    character: "friend1",
+    text: "woohoo, we won!!!! Tomorrow morning, we have to fight again! It’s 20:00",
     friends: [],
     answers: [
       { text: "Do some workout for tomorrow’s battle! ", point: -10 },
       { text: "Find some quite place for do TM.", point: 10 },
     ],
     damage: 0,
-    answers: [
-      {
-        text: "A Gun",
-        point: 0,
-        image: "/foods/15_burger.png",
-      },
-    ],
   },
   {
     text: "It was a long day! Time to sleep. Let’s set an alarm.",
