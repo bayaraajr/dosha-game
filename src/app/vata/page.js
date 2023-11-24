@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { IoHeartSharp } from "react-icons/io5";
 import Modal from "@dosha/components/ModalVata";
+import Link from "next/link";
 
 const StepPage = (props) => {
   const [friends, setFriends] = useState([]);
@@ -312,18 +313,30 @@ const StepPage = (props) => {
       ) : (
         <div className="flex justify-center items-center flex-col bg-[url('/backgrounds/game_background_3.png')] w-screen h-screen bg-cover bg-bottom">
           {currentHP <= 0 ? (
-            <p className="p-4 text-white bg-black text-lg">
+            <p className="p-4 text-white bg-black text-lg flex flex-col">
               Nooooooooo, it cannot end like this, I should have kept my dosha
               in balance, humanity depends on me
+              <Link
+                href="/"
+                className="bg-green-800 rounded text-slate-100 px-2 py-1"
+              >
+                New Game
+              </Link>
             </p>
           ) : (
-            <p className="p-4 text-white bg-black text-2xl">
+            <p className="p-4 text-white bg-black text-2xl flex flex-col">
               And we will be there to stop you, you can bet on that!
               <p className="">
                 Dosha score:
                 <span className="text-yellow-500 font-bold">
                   {currentBalance}
                 </span>
+                <Link
+                  href="/"
+                  className="bg-green-800 rounded text-slate-100 px-2 py-1"
+                >
+                  New Game
+                </Link>
               </p>
             </p>
           )}

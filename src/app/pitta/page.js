@@ -9,6 +9,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { IoHeartSharp } from "react-icons/io5";
 import Modal from "@dosha/components/Modal";
+import Link from "next/link";
 
 const StepPage = (props) => {
   const [friends, setFriends] = useState([]);
@@ -60,7 +61,7 @@ const StepPage = (props) => {
     setCurrentStepIndex((i) => i + 1);
     setCurrentStep(kapha[currentStepIndex + 1]);
     setOpen(false);
-    setRndDamage(null)
+    setRndDamage(null);
   };
 
   useLayoutEffect(() => {
@@ -68,7 +69,7 @@ const StepPage = (props) => {
     document.body.style.backgroundSize = "100%";
   }, []);
   return !gameOver ? (
-    <div className="grid lg:grid-cols-2 grid-cols-1">
+    <div className="flex flex-col  w-screen h-screen">
       <Modal open={open}>
         <div className="grid grid-cols-12 gap-4 p-4">
           <div className="col-span-2">
@@ -172,8 +173,7 @@ const StepPage = (props) => {
           </div>
         </div>
       </Modal>
-
-      <div className="col-span-2 flex justify-between p-10 items-center">
+      {/* <div className="w-full flex justify-between p-10 items-center">
         <div>
           <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-cyan-100 h-[20px] rounded-md">
             <div
@@ -186,6 +186,29 @@ const StepPage = (props) => {
           </p>
         </div>
         <Button>Scholar Pitta</Button>
+        <div className="flex justify-end items-center">
+          <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-green-100 h-[20px] rounded-md">
+            <div
+              style={{ width: `${currentHP}%` }}
+              className={`absolute bg-green-600 h-[20px]`}
+            ></div>
+          </div>
+          <IoHeartSharp className="text-red-500 text-xl ml-2" />
+        </div>
+      </div> */}
+      <div className="sticky top-0 flex gap-2 justify-between p-4 items-center w-full flex-col lg:flex-row">
+        <div>
+          <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-cyan-100 h-[20px] rounded-md">
+            <div
+              style={{ width: `${currentBalance}%` }}
+              className={`absolute bg-cyan-600 h-[20px]`}
+            ></div>
+          </div>
+          <p className="text-white text-center bg-black mt-1 rounded-xl">
+            Dosha Balance {currentBalance}
+          </p>
+        </div>
+        <Button className="-order-1 lg:order-none">Pitta</Button>
         <div className="flex justify-end items-center">
           <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-green-100 h-[20px] rounded-md">
             <div
@@ -246,13 +269,13 @@ const StepPage = (props) => {
             );
           })}
       </div>
-      <div className="col-span-2 flex justify-center px-10 items-center">
+      <div className=" w-full flex justify-center px-4 lg:px-10 items-center">
         <div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Button>{currentStep.text}</Button>
           </motion.div>
 
-          <div className="flex justify-evenly items-center">
+          <div className="flex justify-evenly items-center text-xs md:text-base w-full overscroll-x-auto">
             {currentStep.answers.map((a, i) => {
               return (
                 <motion.div
@@ -285,7 +308,7 @@ const StepPage = (props) => {
                         <Character
                           character={a.sprite}
                           action="idle"
-                          scale={0.5}
+                          scale={0.8}
                           className="-mt-10 -scale-x-[1]"
                           {...a.props}
                         />
@@ -305,8 +328,14 @@ const StepPage = (props) => {
       {currentHP <= 0 ? (
         <p className="p-4 text-white bg-black">No! I am such a FAIIIILUREE!</p>
       ) : (
-        <p className="p-4 text-white text-4xl bg-black">
+        <p className="p-4 text-white text-4xl bg-black flex flex-col">
           Yoo! Bro I got accepted by MIU.
+          <Link
+            href="/"
+            className="bg-green-800 rounded text-slate-100 px-2 py-1"
+          >
+            New Game
+          </Link>
         </p>
       )}
       <Character
