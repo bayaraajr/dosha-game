@@ -26,7 +26,7 @@ export default function Home() {
     >
       <Character
         scale={0.5}
-        character="wizard"
+        character="wizard2"
         action="idle"
         hover="attack_3"
       />
