@@ -48,8 +48,20 @@ const StepPage = (props) => {
     setCurrentStep(kapha[currentStepIndex + 1]);
     setOpen(false);
   };
+
+  // useEffect(() => {
+  //   const audio = new Audio('music/kapha.mp3');
+  //   audio.volume = 0.7;
+  //   audio.play();
+  //   audio.loop = true;
+  // })
+
   return !gameOver ? (
+
     <div className="grid lg:grid-cols-2 grid-cols-1">
+      {/* <audio autoplay>
+        <source src="music/kapha.mp3" type="audio/mp3" />
+      </audio> */}
       <Modal open={open}>
         <div className="grid grid-cols-12 gap-4 p-4">
           <div className="col-span-2">
@@ -183,10 +195,10 @@ const StepPage = (props) => {
                 ? "hurt"
                 : "run"
               : currentStep.villains && currentStep.villains.length > 0
-              ? "attack_3"
-              : "idle"
+                ? "attack_3"
+                : "idle"
           }
-          //   stopLastFrame={currentDmg < 0}
+        //   stopLastFrame={currentDmg < 0}
         />
 
         {currentStep.villains &&
