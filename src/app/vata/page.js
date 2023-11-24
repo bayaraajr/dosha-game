@@ -147,7 +147,7 @@ const StepPage = (props) => {
                 Dosha Balance {currentBalance}
               </p>
             </div>
-            <Button className="-order-1 lg:order-none">Kapha</Button>
+            <Button className="-order-1 lg:order-none">Vata</Button>
             <div className="flex justify-end items-center">
               <div className="relative w-[200px] border-2 p-0 overflow-hidden  border-black transition-all  bg-green-100 h-[20px] rounded-md">
                 <div
