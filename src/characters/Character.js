@@ -17,7 +17,7 @@ function Character({
   }, [action]);
   return (
     <SpriteAnimator
-      sprite={`/characters/${character}/${current}.png`}
+      sprite={`/characters/${character.trim()}/${current.trim()}.png`}
       width={128}
       height={128}
       fps={8}
